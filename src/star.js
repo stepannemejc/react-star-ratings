@@ -1,40 +1,36 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 class Star extends React.Component {
-
   get starContainerStyle() {
     const {
       changeRating,
       starSpacing,
       isFirstStar,
       isLastStar,
-      ignoreInlineStyles
+      ignoreInlineStyles,
     } = this.props;
 
     const starContainerStyle = {
-      position: 'relative',
-      display: 'inline-block',
-      verticalAlign: 'middle',
+      position: "relative",
+      display: "inline-block",
+      verticalAlign: "middle",
       paddingLeft: isFirstStar ? undefined : starSpacing,
       paddingRight: isLastStar ? undefined : starSpacing,
-      cursor: changeRating ? 'pointer' : undefined
+      cursor: changeRating ? "pointer" : undefined,
     };
-    return ignoreInlineStyles ? {} : starContainerStyle
+    return ignoreInlineStyles ? {} : starContainerStyle;
   }
 
   get starSvgStyle() {
-    const {
-      ignoreInlineStyles,
-      isCurrentHoveredStar,
-      starDimension
-    } = this.props;
+    const { ignoreInlineStyles, isCurrentHoveredStar, starDimension } =
+      this.props;
     const starSvgStyle = {
       width: starDimension,
       height: starDimension,
-      transition: 'transform .2s ease-in-out',
-      transform: isCurrentHoveredStar ? 'scale(1.1)' : undefined
+      transition: "transform .2s ease-in-out",
+      transform: isCurrentHoveredStar ? "scale(1.1)" : undefined,
     };
 
     return ignoreInlineStyles ? {} : starSvgStyle;
@@ -51,7 +47,7 @@ class Star extends React.Component {
       starHoverColor,
       gradientPathName,
       fillId,
-      ignoreInlineStyles
+      ignoreInlineStyles,
     } = this.props;
 
     let fill;
@@ -66,7 +62,7 @@ class Star extends React.Component {
 
     const pathStyle = {
       fill: fill,
-      transition: 'fill .2s ease-in-out',
+      transition: "fill .2s ease-in-out",
     };
 
     return ignoreInlineStyles ? {} : pathStyle;
@@ -78,18 +74,18 @@ class Star extends React.Component {
       isPartiallyFullStar,
       isHovered,
       isCurrentHoveredStar,
-      ignoreInlineStyles
+      ignoreInlineStyles,
     } = this.props;
 
     const starClasses = classNames({
-      'widget-svg': true,
-      'widget-selected': isSelected,
-      'multi-widget-selected': isPartiallyFullStar,
-      'hovered': isHovered,
-      'current-hovered': isCurrentHoveredStar
-    })
+      "widget-svg": true,
+      "widget-selected": isSelected,
+      "multi-widget-selected": isPartiallyFullStar,
+      hovered: isHovered,
+      "current-hovered": isCurrentHoveredStar,
+    });
 
-    return ignoreInlineStyles ? {} : starClasses
+    return ignoreInlineStyles ? {} : starClasses;
   }
 
   render() {
@@ -98,7 +94,7 @@ class Star extends React.Component {
       hoverOverStar,
       unHoverOverStar,
       svgIconViewBox,
-      svgIconPath
+      svgIconPath,
     } = this.props;
     return (
       <div
@@ -113,11 +109,21 @@ class Star extends React.Component {
           className={this.starClasses}
           style={this.starSvgStyle}
         >
-          <path
-            className="star"
-            style={this.pathStyle}
-            d={svgIconPath}
-          />
+          <g
+            id="Category-Page"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g
+              id="Product-preview---salmon-no-discount-Copy-12"
+              transform="translate(-49, -490)"
+              fill="#818181"
+            >
+              <path className="star" style={this.pathStyle} d={svgIconPath} />
+            </g>
+          </g>
         </svg>
       </div>
     );
@@ -144,7 +150,7 @@ Star.propTypes = {
   gradientPathName: PropTypes.string.isRequired,
   ignoreInlineStyles: PropTypes.bool.isRequired,
   svgIconPath: PropTypes.string.isRequired,
-  svgIconViewBox: PropTypes.string.isRequired
+  svgIconViewBox: PropTypes.string.isRequired,
 };
 
 export default Star;
