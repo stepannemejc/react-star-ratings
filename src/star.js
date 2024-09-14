@@ -112,9 +112,9 @@ class Star extends React.Component {
           <g
             id="Category-Page"
             stroke="none"
-            stroke-width="1"
+            strokeWidth="1"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           >
             <g
               id="Product-preview---salmon-no-discount-Copy-12"
