@@ -7,11 +7,14 @@ class StarRatings extends React.Component {
     super(props);
     this.state = {
       highestStarHovered: -Infinity,
+      fillId: null,
     };
-    //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+    //this.state.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
   }
 
-  fillId = useId();
+  componentDidMount() {
+    this.setState({ fillId: `starGrad-${crypto.randomUUID()}` });
+  }
 
   get starRatingsStyle() {
     if (this.props.ignoreInlineStyles) return {};
@@ -96,7 +99,7 @@ class StarRatings extends React.Component {
       return (
         <Star
           key={starRating}
-          fillId={this.fillId}
+          fillId={this.state.fillId}
           changeRating={
             changeRating ? () => changeRating(starRating, name) : null
           }
@@ -134,7 +137,13 @@ class StarRatings extends React.Component {
       >
         <svg className="star-grad" style={this.starGradientStyle}>
           <defs>
-            <linearGradient id={this.fillId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient
+              id={this.state.fillId}
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
               <stop
                 offset="0%"
                 className="stop-color-first"
