@@ -34,8 +34,6 @@ var StarRatings = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (StarRatings.__proto__ || Object.getPrototypeOf(StarRatings)).call(this, props));
 
-    _this.fillId = (0, _react.useId)();
-
     _this.hoverOverStar = function (starRating) {
       return function () {
         _this.setState({ highestStarHovered: starRating });
@@ -47,13 +45,19 @@ var StarRatings = function (_React$Component) {
     };
 
     _this.state = {
-      highestStarHovered: -Infinity
+      highestStarHovered: -Infinity,
+      fillId: null
     };
-    //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+    //this.state.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
     return _this;
   }
 
   _createClass(StarRatings, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({ fillId: "starGrad-" + crypto.randomUUID() });
+    }
+  }, {
     key: "stopColorStyle",
     value: function stopColorStyle(color) {
       if (this.props.ignoreInlineStyles) return {};
@@ -92,7 +96,7 @@ var StarRatings = function (_React$Component) {
 
         return _react2.default.createElement(_star2.default, {
           key: starRating,
-          fillId: _this2.fillId,
+          fillId: _this2.state.fillId,
           changeRating: changeRating ? function () {
             return changeRating(starRating, name);
           } : null,
@@ -140,7 +144,13 @@ var StarRatings = function (_React$Component) {
             null,
             _react2.default.createElement(
               "linearGradient",
-              { id: this.fillId, x1: "0%", y1: "0%", x2: "100%", y2: "0%" },
+              {
+                id: this.state.fillId,
+                x1: "0%",
+                y1: "0%",
+                x2: "100%",
+                y2: "0%"
+              },
               _react2.default.createElement("stop", {
                 offset: "0%",
                 className: "stop-color-first",
