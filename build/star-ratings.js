@@ -47,7 +47,8 @@ var StarRatings = function (_React$Component) {
     _this.state = {
       highestStarHovered: -Infinity
     };
-    _this.fillId = "starGrad" + Math.random().toFixed(15).slice(2);
+    //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+    _this.fillId = (0, _react.useId)();
     return _this;
   }
 
