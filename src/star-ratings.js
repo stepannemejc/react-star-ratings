@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import PropTypes from "prop-types";
 import Star from "./star";
 
@@ -8,7 +8,8 @@ class StarRatings extends React.Component {
     this.state = {
       highestStarHovered: -Infinity,
     };
-    this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+    //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+    this.fillId = useId();
   }
 
   get starRatingsStyle() {
