@@ -9,8 +9,9 @@ class StarRatings extends React.Component {
       highestStarHovered: -Infinity,
     };
     //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
-    this.fillId = useId();
   }
+
+  fillId = useId();
 
   get starRatingsStyle() {
     if (this.props.ignoreInlineStyles) return {};

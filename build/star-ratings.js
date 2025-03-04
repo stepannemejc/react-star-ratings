@@ -34,6 +34,8 @@ var StarRatings = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (StarRatings.__proto__ || Object.getPrototypeOf(StarRatings)).call(this, props));
 
+    _this.fillId = (0, _react.useId)();
+
     _this.hoverOverStar = function (starRating) {
       return function () {
         _this.setState({ highestStarHovered: starRating });
@@ -48,7 +50,6 @@ var StarRatings = function (_React$Component) {
       highestStarHovered: -Infinity
     };
     //this.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
-    _this.fillId = (0, _react.useId)();
     return _this;
   }
 
