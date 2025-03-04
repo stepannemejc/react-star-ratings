@@ -1,6 +1,6 @@
 {
   "name": "react-star-ratings-eco",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A customizable star rating component for selecting x stars or visualizing x stars",
   "main": "build/index.js",
   "scripts": {
