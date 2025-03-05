@@ -55,7 +55,7 @@ var StarRatings = function (_React$Component) {
   _createClass(StarRatings, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({ fillId: "starGrad-" + crypto.randomUUID() });
+      this.setState({ fillId: "starGrad" + Math.random().toFixed(15).slice(2) });
     }
   }, {
     key: "stopColorStyle",

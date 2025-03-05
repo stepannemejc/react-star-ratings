@@ -13,7 +13,7 @@ class StarRatings extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ fillId: `starGrad-${crypto.randomUUID()}` });
+    this.setState({ fillId: `starGrad${Math.random().toFixed(15).slice(2)}` });
   }
 
   get starRatingsStyle() {
