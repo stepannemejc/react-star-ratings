@@ -4,9 +4,14 @@ import Star from './star';
 
 class StarRatings extends React.Component {
   state = {
-    highestStarHovered: -Infinity
+    highestStarHovered: -Infinity,
+    isFirstPaint: true
   }
   fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
+
+  componentDidMount() {
+    this.setState({ isFirstPaint: false });
+  }
 
   get starRatingsStyle() {
     const starRatingsStyle = {
@@ -92,12 +97,13 @@ class StarRatings extends React.Component {
       starEmptyColor,
       starHoverColor,
       gradientPathName,
+      gradientId,
       ignoreInlineStyles,
       svgIconPath,
       svgIconViewBox,
       name
     } = this.props;
-    const { highestStarHovered } = this.state;
+    const { highestStarHovered, isFirstPaint } = this.state;
         
     const numberOfStarsArray = Array.apply(null, Array(numberOfStars));
 
@@ -116,11 +122,13 @@ class StarRatings extends React.Component {
 
       const isFirstStar = starRating === 1;
       const isLastStar = starRating === numberOfStars;
+      const disableFillTransition = isFirstPaint;
+      const resolvedFillId = gradientId || this.fillId;
 
       return (
         <Star
           key={starRating}
-          fillId={this.fillId}
+          fillId={resolvedFillId}
           changeRating={changeRating ? () => changeRating(starRating, name) : null}
           hoverOverStar={changeRating ? this.hoverOverStar(starRating) : null}
           unHoverOverStar={changeRating ? this.unHoverOverStar : null}
@@ -131,6 +139,7 @@ class StarRatings extends React.Component {
           isCurrentHoveredStar={isCurrentHoveredStar}
           isFirstStar={isFirstStar}
           isLastStar={isLastStar}
+          disableFillTransition={disableFillTransition}
           starDimension={starDimension}
           starSpacing={starSpacing}
           starHoverColor={starHoverColor}
@@ -148,8 +157,10 @@ class StarRatings extends React.Component {
   render() {
     const {
       starRatedColor,
-      starEmptyColor
+      starEmptyColor,
+      gradientId
     } = this.props;
+    const resolvedFillId = gradientId || this.fillId;
     
     return (
       <div
@@ -162,7 +173,7 @@ class StarRatings extends React.Component {
           style={this.starGradientStyle}
         >
           <defs>
-            <linearGradient id={this.fillId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id={resolvedFillId} x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" className="stop-color-first" style={this.stopColorStyle(starRatedColor)} />
               <stop offset={this.offsetValue} className="stop-color-first" style={this.stopColorStyle(starRatedColor)} />
               <stop offset={this.offsetValue} className="stop-color-final" style={this.stopColorStyle(starEmptyColor)} />
@@ -186,6 +197,7 @@ StarRatings.propTypes = {
   starDimension: PropTypes.string.isRequired,
   starSpacing: PropTypes.string.isRequired,
   gradientPathName: PropTypes.string.isRequired,
+  gradientId: PropTypes.string,
   ignoreInlineStyles: PropTypes.bool.isRequired,
   svgIconPath: PropTypes.string.isRequired,
   svgIconViewBox: PropTypes.string.isRequired,
@@ -203,6 +215,7 @@ StarRatings.defaultProps = {
   starDimension: '50px',
   starSpacing: '7px',
   gradientPathName: '',
+  gradientId: '',
   ignoreInlineStyles: false,
   svgIconPath: 'm25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z',
   svgIconViewBox: '0 0 51 48'

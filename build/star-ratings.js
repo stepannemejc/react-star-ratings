@@ -46,7 +46,8 @@ var StarRatings = function (_React$Component) {
 
     _this.state = {
       highestStarHovered: -Infinity,
-      fillId: null
+      fillId: null,
+      isFirstPaint: true
     };
     return _this;
   }
@@ -54,7 +55,15 @@ var StarRatings = function (_React$Component) {
   _createClass(StarRatings, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setState({ fillId: "starGrad" + Math.random().toFixed(15).slice(2) });
+      var _this2 = this;
+
+      if (this.props.gradientId) {
+        this.setState({ isFirstPaint: false });
+        return;
+      }
+      this.setState({ fillId: "starGrad" + Math.random().toFixed(15).slice(2) }, function () {
+        _this2.setState({ isFirstPaint: false });
+      });
     }
   }, {
     key: "stopColorStyle",
@@ -65,7 +74,7 @@ var StarRatings = function (_React$Component) {
   }, {
     key: "renderStars",
     value: function renderStars() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _props = this.props,
           changeRating = _props.changeRating,
@@ -77,6 +86,7 @@ var StarRatings = function (_React$Component) {
           starEmptyColor = _props.starEmptyColor,
           starHoverColor = _props.starHoverColor,
           gradientPathName = _props.gradientPathName,
+          gradientId = _props.gradientId,
           ignoreInlineStyles = _props.ignoreInlineStyles,
           svgIconPath = _props.svgIconPath,
           svgIconViewBox = _props.svgIconViewBox,
@@ -86,21 +96,23 @@ var StarRatings = function (_React$Component) {
       return Array.from({ length: numberOfStars }).map(function (_, index) {
         var starRating = index + 1;
         var isStarred = starRating <= rating;
-        var isHovered = starRating <= _this2.state.highestStarHovered;
-        var isCurrentHoveredStar = starRating === _this2.state.highestStarHovered;
+        var isHovered = starRating <= _this3.state.highestStarHovered;
+        var isCurrentHoveredStar = starRating === _this3.state.highestStarHovered;
         var isPartiallyFullStar = starRating > rating && starRating - 1 < rating;
         var isFirstStar = starRating === 1;
         var isLastStar = starRating === numberOfStars;
-        var hoverMode = _this2.state.highestStarHovered > 0;
+        var hoverMode = _this3.state.highestStarHovered > 0;
+        var disableFillTransition = _this3.state.isFirstPaint;
+        var resolvedFillId = gradientId || _this3.state.fillId;
 
         return _react2.default.createElement(_star2.default, {
           key: starRating,
-          fillId: _this2.state.fillId,
+          fillId: resolvedFillId,
           changeRating: changeRating ? function () {
             return changeRating(starRating, name);
           } : null,
-          hoverOverStar: changeRating ? _this2.hoverOverStar(starRating) : null,
-          unHoverOverStar: changeRating ? _this2.unHoverOverStar : null,
+          hoverOverStar: changeRating ? _this3.hoverOverStar(starRating) : null,
+          unHoverOverStar: changeRating ? _this3.unHoverOverStar : null,
           isStarred: isStarred,
           isPartiallyFullStar: isPartiallyFullStar,
           isHovered: isHovered,
@@ -108,6 +120,7 @@ var StarRatings = function (_React$Component) {
           isCurrentHoveredStar: isCurrentHoveredStar,
           isFirstStar: isFirstStar,
           isLastStar: isLastStar,
+          disableFillTransition: disableFillTransition,
           starDimension: starDimension,
           starSpacing: starSpacing,
           starHoverColor: starHoverColor,
@@ -125,8 +138,10 @@ var StarRatings = function (_React$Component) {
     value: function render() {
       var _props2 = this.props,
           starRatedColor = _props2.starRatedColor,
-          starEmptyColor = _props2.starEmptyColor;
+          starEmptyColor = _props2.starEmptyColor,
+          gradientId = _props2.gradientId;
 
+      var resolvedFillId = gradientId || this.state.fillId;
 
       return _react2.default.createElement(
         "div",
@@ -144,7 +159,7 @@ var StarRatings = function (_React$Component) {
             _react2.default.createElement(
               "linearGradient",
               {
-                id: this.state.fillId,
+                id: resolvedFillId,
                 x1: "0%",
                 y1: "0%",
                 x2: "100%",
@@ -236,6 +251,7 @@ StarRatings.propTypes = {
   starDimension: _propTypes2.default.string.isRequired,
   starSpacing: _propTypes2.default.string.isRequired,
   gradientPathName: _propTypes2.default.string.isRequired,
+  gradientId: _propTypes2.default.string,
   ignoreInlineStyles: _propTypes2.default.bool.isRequired,
   svgIconPath: _propTypes2.default.string.isRequired,
   svgIconViewBox: _propTypes2.default.string.isRequired,
@@ -253,6 +269,7 @@ StarRatings.defaultProps = {
   starDimension: "50px",
   starSpacing: "7px",
   gradientPathName: "",
+  gradientId: "",
   ignoreInlineStyles: false,
   svgIconPath: "m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z",
   svgIconViewBox: "0 0 51 48"

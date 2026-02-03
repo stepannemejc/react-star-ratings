@@ -134,6 +134,7 @@ var Star = function (_React$Component) {
           starHoverColor = _props4.starHoverColor,
           gradientPathName = _props4.gradientPathName,
           fillId = _props4.fillId,
+          disableFillTransition = _props4.disableFillTransition,
           ignoreInlineStyles = _props4.ignoreInlineStyles;
 
 
@@ -148,7 +149,7 @@ var Star = function (_React$Component) {
 
       var pathStyle = {
         fill: fill,
-        transition: "fill .2s ease-in-out"
+        transition: disableFillTransition ? "none" : "fill .2s ease-in-out"
       };
 
       return ignoreInlineStyles ? {} : pathStyle;
@@ -197,6 +198,7 @@ Star.propTypes = {
   starRatedColor: _propTypes2.default.string.isRequired,
   starEmptyColor: _propTypes2.default.string.isRequired,
   gradientPathName: _propTypes2.default.string.isRequired,
+  disableFillTransition: _propTypes2.default.bool.isRequired,
   ignoreInlineStyles: _propTypes2.default.bool.isRequired,
   svgIconPath: _propTypes2.default.string.isRequired,
   svgIconViewBox: _propTypes2.default.string.isRequired

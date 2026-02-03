@@ -47,6 +47,7 @@ class Star extends React.Component {
       starHoverColor,
       gradientPathName,
       fillId,
+      disableFillTransition,
       ignoreInlineStyles,
     } = this.props;
 
@@ -65,7 +66,7 @@ class Star extends React.Component {
 
     const pathStyle = {
       fill: fill,
-      transition: "fill .2s ease-in-out",
+      transition: disableFillTransition ? "none" : "fill .2s ease-in-out",
     };
 
     return ignoreInlineStyles ? {} : pathStyle;
@@ -151,6 +152,7 @@ Star.propTypes = {
   starRatedColor: PropTypes.string.isRequired,
   starEmptyColor: PropTypes.string.isRequired,
   gradientPathName: PropTypes.string.isRequired,
+  disableFillTransition: PropTypes.bool.isRequired,
   ignoreInlineStyles: PropTypes.bool.isRequired,
   svgIconPath: PropTypes.string.isRequired,
   svgIconViewBox: PropTypes.string.isRequired,

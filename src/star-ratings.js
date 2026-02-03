@@ -8,11 +8,21 @@ class StarRatings extends React.Component {
     this.state = {
       highestStarHovered: -Infinity,
       fillId: null,
+      isFirstPaint: true,
     };
   }
 
   componentDidMount() {
-    this.setState({ fillId: `starGrad${Math.random().toFixed(15).slice(2)}` });
+    if (this.props.gradientId) {
+      this.setState({ isFirstPaint: false });
+      return;
+    }
+    this.setState(
+      { fillId: `starGrad${Math.random().toFixed(15).slice(2)}` },
+      () => {
+        this.setState({ isFirstPaint: false });
+      }
+    );
   }
 
   get starRatingsStyle() {
@@ -78,6 +88,7 @@ class StarRatings extends React.Component {
       starEmptyColor,
       starHoverColor,
       gradientPathName,
+      gradientId,
       ignoreInlineStyles,
       svgIconPath,
       svgIconViewBox,
@@ -94,11 +105,13 @@ class StarRatings extends React.Component {
       const isFirstStar = starRating === 1;
       const isLastStar = starRating === numberOfStars;
       const hoverMode = this.state.highestStarHovered > 0;
+      const disableFillTransition = this.state.isFirstPaint;
+      const resolvedFillId = gradientId || this.state.fillId;
 
       return (
         <Star
           key={starRating}
-          fillId={this.state.fillId}
+          fillId={resolvedFillId}
           changeRating={
             changeRating ? () => changeRating(starRating, name) : null
           }
@@ -111,6 +124,7 @@ class StarRatings extends React.Component {
           isCurrentHoveredStar={isCurrentHoveredStar}
           isFirstStar={isFirstStar}
           isLastStar={isLastStar}
+          disableFillTransition={disableFillTransition}
           starDimension={starDimension}
           starSpacing={starSpacing}
           starHoverColor={starHoverColor}
@@ -126,7 +140,8 @@ class StarRatings extends React.Component {
   }
 
   render() {
-    const { starRatedColor, starEmptyColor } = this.props;
+    const { starRatedColor, starEmptyColor, gradientId } = this.props;
+    const resolvedFillId = gradientId || this.state.fillId;
 
     return (
       <div
@@ -137,7 +152,7 @@ class StarRatings extends React.Component {
         <svg className="star-grad" style={this.starGradientStyle}>
           <defs>
             <linearGradient
-              id={this.state.fillId}
+              id={resolvedFillId}
               x1="0%"
               y1="0%"
               x2="100%"
@@ -182,6 +197,7 @@ StarRatings.propTypes = {
   starDimension: PropTypes.string.isRequired,
   starSpacing: PropTypes.string.isRequired,
   gradientPathName: PropTypes.string.isRequired,
+  gradientId: PropTypes.string,
   ignoreInlineStyles: PropTypes.bool.isRequired,
   svgIconPath: PropTypes.string.isRequired,
   svgIconViewBox: PropTypes.string.isRequired,
@@ -199,6 +215,7 @@ StarRatings.defaultProps = {
   starDimension: "50px",
   starSpacing: "7px",
   gradientPathName: "",
+  gradientId: "",
   ignoreInlineStyles: false,
   svgIconPath: "m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z",
   svgIconViewBox: "0 0 51 48",
