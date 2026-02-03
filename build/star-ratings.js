@@ -46,18 +46,12 @@ var StarRatings = function (_React$Component) {
 
     _this.state = {
       highestStarHovered: -Infinity,
-      fillId: null
+      fillId: "starGrad" + Math.random().toFixed(15).slice(2)
     };
-    //this.state.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
     return _this;
   }
 
   _createClass(StarRatings, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.setState({ fillId: "starGrad" + Math.random().toFixed(15).slice(2) });
-    }
-  }, {
     key: "stopColorStyle",
     value: function stopColorStyle(color) {
       if (this.props.ignoreInlineStyles) return {};

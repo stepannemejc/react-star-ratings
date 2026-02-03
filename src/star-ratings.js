@@ -7,13 +7,8 @@ class StarRatings extends React.Component {
     super(props);
     this.state = {
       highestStarHovered: -Infinity,
-      fillId: null,
+      fillId: `starGrad${Math.random().toFixed(15).slice(2)}`,
     };
-    //this.state.fillId = `starGrad${Math.random().toFixed(15).slice(2)}`;
-  }
-
-  componentDidMount() {
-    this.setState({ fillId: `starGrad${Math.random().toFixed(15).slice(2)}` });
   }
 
   get starRatingsStyle() {
