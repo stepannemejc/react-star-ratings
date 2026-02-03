@@ -142,7 +142,7 @@ var Star = function (_React$Component) {
         if (isHovered) fill = starHoverColor;else fill = starEmptyColor;
       } else {
         if (isPartiallyFullStar) {
-          if (!fillId || !gradientPathName) fill = starRatedColor;else fill = "url('" + gradientPathName + "#" + fillId + "')";
+          if (!fillId) fill = starRatedColor;else fill = "url('" + gradientPathName + "#" + fillId + "')";
         } else if (isStarred) fill = starRatedColor;else fill = starEmptyColor;
       }
 

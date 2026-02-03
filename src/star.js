@@ -56,7 +56,7 @@ class Star extends React.Component {
       else fill = starEmptyColor;
     } else {
       if (isPartiallyFullStar) {
-        if (!fillId || !gradientPathName) fill = starRatedColor;
+        if (!fillId) fill = starRatedColor;
         else fill = `url('${gradientPathName}#${fillId}')`;
       }
       else if (isStarred) fill = starRatedColor;
