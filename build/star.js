@@ -141,7 +141,9 @@ var Star = function (_React$Component) {
       if (hoverMode) {
         if (isHovered) fill = starHoverColor;else fill = starEmptyColor;
       } else {
-        if (isPartiallyFullStar) fill = "url('" + gradientPathName + "#" + fillId + "')";else if (isStarred) fill = starRatedColor;else fill = starEmptyColor;
+        if (isPartiallyFullStar) {
+          if (!fillId || !gradientPathName) fill = starRatedColor;else fill = "url('" + gradientPathName + "#" + fillId + "')";
+        } else if (isStarred) fill = starRatedColor;else fill = starEmptyColor;
       }
 
       var pathStyle = {

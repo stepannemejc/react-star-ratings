@@ -55,7 +55,10 @@ class Star extends React.Component {
       if (isHovered) fill = starHoverColor;
       else fill = starEmptyColor;
     } else {
-      if (isPartiallyFullStar) fill = `url('${gradientPathName}#${fillId}')`;
+      if (isPartiallyFullStar) {
+        if (!fillId || !gradientPathName) fill = starRatedColor;
+        else fill = `url('${gradientPathName}#${fillId}')`;
+      }
       else if (isStarred) fill = starRatedColor;
       else fill = starEmptyColor;
     }
